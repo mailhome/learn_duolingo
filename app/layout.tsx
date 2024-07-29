@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local"
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = localFont({
+  src: [
+    {
+      path: "../public/din-round-light.ttf",
+      weight: "200",
+      style: 'normal'
+    },
+
+    {
+      path: "../public/din-round-bold.woff",
+      weight: "700",
+      style: 'normal'
+    },
+  ]
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +30,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={font.className}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
